@@ -1,0 +1,38 @@
+@use '../abstracts/variables' as *;
+
+.dashboard {
+  &__grid {
+    display: grid;
+    gap: $space-6;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    min-width: 0;
+  }
+}
+
+.chart-card {
+  min-width: 0;
+  padding: $space-6;
+
+  &__placeholder {
+    background:
+      linear-gradient($color-border 1px, transparent 1px),
+      linear-gradient(90deg, $color-border 1px, transparent 1px);
+    background-size: 40px 40px;
+    height: 280px;
+    margin-top: $space-6;
+    max-width: 100%;
+    min-width: 0;
+    position: relative;
+
+    &::after {
+      background: linear-gradient(135deg, $color-primary, #8067dc);
+      border-radius: $radius-sm;
+      bottom: 30px;
+      content: '';
+      height: 120px;
+      left: 12%;
+      position: absolute;
+      right: 12%;
+    }
+  }
+}

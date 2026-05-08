@@ -1,0 +1,45 @@
+@use '../abstracts/variables' as *;
+
+.skeleton {
+  display: grid;
+  gap: $space-4;
+  padding: $space-6;
+
+  &__row {
+    animation: pulse 1.2s infinite;
+    background: linear-gradient(90deg, #eef2f8, #f7f9fc, #eef2f8);
+    border-radius: $radius-sm;
+    height: 44px;
+  }
+}
+
+.empty-state,
+.error-state,
+.route-loader,
+.fatal-error {
+  color: $color-text;
+  display: grid;
+  gap: $space-2;
+  min-height: 160px;
+  place-items: center;
+  text-align: center;
+}
+
+.error-state h2 {
+  color: $color-danger;
+}
+
+.fatal-error {
+  min-height: 100vh;
+  padding: $space-8;
+
+  h1 {
+    color: $color-navy;
+  }
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}

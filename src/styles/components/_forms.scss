@@ -1,0 +1,42 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.field {
+  display: grid;
+  gap: $space-2;
+
+  &__label {
+    color: $color-navy;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  &__control,
+  input {
+    border: 1px solid $color-border;
+    border-radius: $radius-sm;
+    color: $color-navy;
+    min-height: 42px;
+    padding: 0 $space-4;
+    width: 100%;
+
+    &:focus {
+      @include focus-ring;
+      border-color: $color-primary;
+    }
+  }
+
+  &__error {
+    color: $color-danger;
+    font-size: 12px;
+  }
+}
+
+input,
+select {
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
+  color: $color-navy;
+  min-height: 40px;
+  padding: 0 $space-4;
+}

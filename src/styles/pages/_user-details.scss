@@ -1,0 +1,146 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.back-link {
+  align-items: center;
+  color: $color-text;
+  display: inline-flex;
+  gap: $space-2;
+  width: fit-content;
+}
+
+.user-details {
+  &__header {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-4;
+    justify-content: space-between;
+    min-width: 0;
+
+    > div {
+      display: flex;
+      flex-wrap: wrap;
+      gap: $space-3;
+    }
+  }
+}
+
+.profile-card {
+  min-width: 0;
+  padding: $space-6 $space-6 0;
+
+  &__summary {
+    align-items: center;
+    display: grid;
+    gap: $space-5;
+    grid-template-columns: auto 1fr;
+    min-width: 0;
+
+    @include respond(md) {
+      grid-template-columns: auto 1fr auto auto;
+    }
+
+    > div:not(:last-child) {
+      @include respond(md) {
+        border-right: 1px solid $color-border;
+        padding-right: $space-8;
+      }
+    }
+
+    h2 {
+      font-size: 20px;
+    }
+
+    p,
+    span {
+      color: $color-text;
+      font-size: 13px;
+    }
+  }
+
+  &__avatar {
+    @include flex-center;
+    background: #dfe6f5;
+    border-radius: 50%;
+    color: $color-navy;
+    height: 100px;
+    width: 100px;
+  }
+
+  &__tier div {
+    color: $color-warning;
+    display: flex;
+    gap: 0.2rem;
+    margin-top: $space-2;
+  }
+
+  &__tabs {
+    display: flex;
+    gap: $space-4;
+    margin-top: $space-8;
+    max-width: 100%;
+    min-width: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+
+    button {
+      background: transparent;
+      border: 0;
+      color: $color-text;
+      cursor: pointer;
+      font-size: 13px;
+      min-width: max-content;
+      padding: $space-4 $space-5;
+    }
+  }
+
+  &__tab--active {
+    border-bottom: 2px solid $color-primary !important;
+    color: $color-primary !important;
+  }
+}
+
+.details-card {
+  display: grid;
+  gap: $space-6;
+  min-width: 0;
+  padding: $space-6;
+
+  section:not(:last-child) {
+    border-bottom: 1px solid $color-border;
+    padding-bottom: $space-6;
+  }
+}
+
+.details-grid {
+  display: grid;
+  gap: $space-6;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr));
+  margin: $space-5 0 0;
+  min-width: 0;
+
+  &--guarantor:not(:last-child) {
+    border-bottom: 1px solid $color-border;
+    padding-bottom: $space-6;
+  }
+}
+
+.detail {
+  display: grid;
+  gap: $space-1;
+  min-width: 0;
+
+  dt {
+    color: $color-text;
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+
+  dd {
+    color: $color-navy;
+    font-weight: 500;
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+}

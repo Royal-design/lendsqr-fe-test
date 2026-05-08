@@ -1,0 +1,114 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.sidebar {
+  background: $color-white;
+  box-shadow: $shadow-subtle;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  left: 0;
+  overflow: hidden;
+  padding: $space-5 0;
+  position: absolute;
+  top: 0;
+  transform: translateX(-105%);
+  transition: transform 180ms ease;
+  width: min(260px, 86vw);
+  z-index: 25;
+
+  @include respond(lg) {
+    align-self: stretch;
+    grid-column: 1;
+    height: 100%;
+    left: auto;
+    min-height: 0;
+    overflow-y: auto;
+    position: relative;
+    top: auto;
+    transform: translateX(0);
+  }
+
+  &--open { transform: translateX(0); }
+
+  nav {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    padding: $space-3 0;
+  }
+
+  &__switch,
+  &__link,
+  &__logout {
+    align-items: center;
+    background: transparent;
+    border: 0;
+    color: $color-navy;
+    display: flex;
+    gap: $space-3;
+    min-height: 42px;
+    padding: 0 clamp(1rem, 7vw, 1.875rem);
+    text-align: left;
+    width: 100%;
+  }
+
+  &__switch {
+    flex: 0 0 auto;
+  }
+
+  &__link {
+    border: 0;
+    color: rgba($color-navy, 0.65);
+    cursor: pointer;
+    font-size: 13px;
+    position: relative;
+
+    &:hover,
+    &--active {
+      background: rgba($color-primary, 0.08);
+      color: $color-navy;
+    }
+
+    &--active::before {
+      background: $color-primary;
+      bottom: 0;
+      content: '';
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 4px;
+    }
+
+    &--disabled {
+      cursor: default;
+
+      &:hover {
+        background: transparent;
+        color: rgba($color-navy, 0.65);
+      }
+    }
+  }
+
+  &__section {
+    color: $color-text;
+    font-size: 12px;
+    font-weight: 700;
+    margin: $space-4 clamp(1rem, 7vw, 1.875rem) $space-2;
+    text-transform: uppercase;
+  }
+
+  &__logout {
+    border-top: 1px solid $color-border;
+    flex: 0 0 auto;
+    margin-top: 0;
+    padding-top: $space-5;
+  }
+
+  &__version {
+    color: $color-text;
+    flex: 0 0 auto;
+    font-size: 12px;
+    padding: 0 clamp(1rem, 7vw, 1.5rem);
+  }
+}

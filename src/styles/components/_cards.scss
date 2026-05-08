@@ -1,0 +1,74 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.card {
+  @include card;
+}
+
+.stats-grid {
+  display: grid;
+  gap: $space-6;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  min-width: 0;
+}
+
+.stat-card {
+  min-height: 150px;
+  min-width: 0;
+  padding: $space-6;
+
+  &--compact { min-height: 138px; }
+
+  &__icon,
+  &__dot {
+    @include flex-center;
+    background: rgba(#df18ff, 0.12);
+    border-radius: 50%;
+    color: #df18ff;
+    height: 40px;
+    width: 40px;
+  }
+
+  &__icon--violet {
+    background: rgba(#5718ff, 0.1);
+    color: #5718ff;
+  }
+
+  &__icon--coral {
+    background: rgba(#f55f44, 0.1);
+    color: #f55f44;
+  }
+
+  &__icon--rose {
+    background: rgba(#ff3366, 0.1);
+    color: #ff3366;
+  }
+
+  &__icon--magenta {
+    background: rgba(#df18ff, 0.1);
+    color: #df18ff;
+  }
+
+  &__dot::before {
+    content: '';
+    background: currentColor;
+    border-radius: 50%;
+    height: 15px;
+    width: 15px;
+  }
+
+  p {
+    color: $color-text;
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: $space-4;
+    text-transform: uppercase;
+  }
+
+  strong {
+    color: $color-navy;
+    display: block;
+    font-size: 24px;
+    margin-top: $space-2;
+  }
+}

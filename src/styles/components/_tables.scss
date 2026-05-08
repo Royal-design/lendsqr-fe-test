@@ -1,0 +1,110 @@
+@use '../abstracts/variables' as *;
+
+.table-wrap {
+  overflow-x: auto;
+  overflow-y: visible;
+  max-width: 100%;
+  min-width: 0;
+  overscroll-behavior-x: contain;
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
+.users-table {
+  border-collapse: collapse;
+  min-width: 900px;
+  width: 100%;
+
+  th,
+  td {
+    border-bottom: 1px solid rgba($color-border, 0.75);
+    padding: 1.1rem 1rem;
+    text-align: left;
+    white-space: nowrap;
+  }
+
+  th {
+    color: $color-text;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+
+    span {
+      vertical-align: middle;
+    }
+
+    svg {
+      margin-left: 0.35rem;
+      vertical-align: middle;
+    }
+  }
+
+  &__filter {
+    align-items: center;
+    background: transparent;
+    border: 0;
+    color: $color-text;
+    cursor: pointer;
+    display: inline-flex;
+    height: 24px;
+    justify-content: center;
+    padding: 0;
+    width: 24px;
+
+    &:focus-visible {
+      outline: 2px solid rgba($color-primary, 0.5);
+      outline-offset: 1px;
+    }
+  }
+
+  &__filter-icon {
+    color: $color-text;
+    opacity: 0.85;
+  }
+
+  td {
+    color: $color-text;
+    font-size: 13px;
+  }
+
+  tbody tr {
+    transition: background 140ms ease;
+
+    &:hover {
+      background: rgba($color-primary, 0.035);
+    }
+  }
+
+  &__actions {
+    position: relative;
+
+    > button {
+      align-items: center;
+      background: transparent;
+      border: 0;
+      border-radius: 50%;
+      cursor: pointer;
+      display: inline-flex;
+      height: 32px;
+      justify-content: center;
+      width: 32px;
+
+      &:focus-visible {
+        outline: 2px solid rgba($color-primary, 0.5);
+        outline-offset: 2px;
+      }
+    }
+  }
+}
+
+.badge {
+  border-radius: 999px;
+  display: inline-flex;
+  font-size: 12px;
+  padding: 0.35rem 0.75rem;
+
+  &--active { background: rgba($color-success, 0.1); color: $color-success; }
+  &--inactive { background: rgba($color-text, 0.1); color: $color-text; }
+  &--pending { background: rgba($color-warning, 0.12); color: $color-warning; }
+  &--blacklisted { background: rgba($color-danger, 0.1); color: $color-danger; }
+}
