@@ -15,7 +15,6 @@
 
 .empty-state,
 .error-state,
-.route-loader,
 .fatal-error {
   color: $color-text;
   display: grid;
@@ -23,6 +22,49 @@
   min-height: 160px;
   place-items: center;
   text-align: center;
+}
+
+.route-loader {
+  align-content: center;
+  background:
+    linear-gradient(180deg, rgba($color-white, 0.96), rgba($color-bg, 0.96)),
+    radial-gradient(circle at 50% 42%, rgba($color-primary, 0.14), transparent 28rem);
+  color: $color-text;
+  display: grid;
+  gap: $space-5;
+  justify-items: center;
+  min-height: 100vh;
+  padding: $space-8;
+  text-align: center;
+
+  &__logo {
+    animation: loader-rise 700ms ease both;
+    height: auto;
+    max-width: min(174px, 70vw);
+  }
+
+  &__progress {
+    background: rgba($color-navy, 0.08);
+    border-radius: 999px;
+    height: 4px;
+    overflow: hidden;
+    width: min(220px, 58vw);
+
+    span {
+      animation: loader-progress 1.1s ease-in-out infinite;
+      background: linear-gradient(90deg, $color-navy, $color-primary);
+      border-radius: inherit;
+      display: block;
+      height: 100%;
+      width: 45%;
+    }
+  }
+
+  p {
+    font-size: 13px;
+    font-weight: 600;
+    margin: 0;
+  }
 }
 
 .error-state h2 {
@@ -42,4 +84,27 @@
   0% { opacity: 0.6; }
   50% { opacity: 1; }
   100% { opacity: 0.6; }
+}
+
+@keyframes loader-rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes loader-progress {
+  0% {
+    transform: translateX(-120%);
+  }
+
+  55%,
+  100% {
+    transform: translateX(230%);
+  }
 }
