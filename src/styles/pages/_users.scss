@@ -1,5 +1,5 @@
-@use '../abstracts/variables' as *;
-@use '../abstracts/mixins' as *;
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
 
 .table-card {
   max-width: 100%;
@@ -18,13 +18,18 @@
     justify-content: flex-end;
     margin-bottom: $space-4;
 
-    input { max-width: 280px; width: 100%; }
+    input {
+      max-width: 280px;
+      width: 100%;
+    }
 
     @media (max-width: 40rem) {
       align-items: stretch;
       flex-direction: column;
 
-      input { max-width: none; }
+      input {
+        max-width: none;
+      }
     }
   }
 }
@@ -57,7 +62,44 @@
 
   input,
   select {
+    border-radius: $radius-lg;
     width: 100%;
+
+    &::placeholder {
+      color: $color-text;
+      font-size: 14px;
+      font-weight: 400;
+    }
+  }
+
+  select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='8' height='5' viewBox='0 0 8 5' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M3.05928 3.8696C3.39522 4.24304 3.9421 4.23992 4.2749 3.8696L7.1499 0.675C7.48584 0.30234 7.35224 0 6.85146 0H0.48266C-0.0181206 0 -0.14938 0.30546 0.18422 0.675L3.05928 3.8696Z' fill='%23545F7D'/%3E%3C/svg%3E");
+    background-position: right $space-4 center;
+    background-repeat: no-repeat;
+    padding-right: $space-10;
+    font-weight: 400;
+    font-size: 14px;
+  }
+
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+  }
+
+  &__date-field {
+    position: relative;
+
+    input {
+      padding-right: $space-10;
+    }
+
+    svg {
+      pointer-events: none;
+      position: absolute;
+      right: $space-4;
+      top: 50%;
+      transform: translateY(-50%);
+    }
   }
 
   &__actions {
@@ -118,13 +160,32 @@
     gap: $space-2;
   }
 
-  @include respond(md) {
-    justify-content: flex-start;
+  &__summary,
+  &__controls {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-3;
+
+    @media (max-width: 35rem) {
+      gap: $space-2;
+    }
+  }
+
+  &__controls {
+    justify-content: flex-end;
+    margin-left: auto;
+
+    @media (max-width: 35rem) {
+      justify-content: flex-start;
+      margin-left: 0;
+      width: 100%;
+    }
   }
 
   button,
   select {
-    background: rgba($color-navy, 0.08);
+    background: rgba($color-navy, 0.1);
     border: 0;
     border-radius: $radius-sm;
     color: $color-navy;
@@ -136,8 +197,24 @@
     }
   }
 
+  select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='8' height='5' viewBox='0 0 8 5' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M3.05928 3.8696C3.39522 4.24304 3.9421 4.23992 4.2749 3.8696L7.1499 0.675C7.48584 0.30234 7.35224 0 6.85146 0H0.48266C-0.0181206 0 -0.14938 0.30546 0.18422 0.675L3.05928 3.8696Z' fill='%23213F7D'/%3E%3C/svg%3E");
+    background-position: right $space-3 center;
+    background-repeat: no-repeat;
+    padding-right: $space-8;
+
+    @media (max-width: 35rem) {
+      background-position: right $space-2 center;
+      padding-right: $space-6;
+    }
+  }
+
   button {
+    align-items: center;
     cursor: pointer;
+    display: inline-flex;
+    justify-content: center;
 
     &:disabled {
       cursor: not-allowed;

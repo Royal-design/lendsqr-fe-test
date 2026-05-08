@@ -1,37 +1,88 @@
-import { useMemo, useState } from 'react';
-import { MoreVertical, SlidersHorizontal, Eye, UserCheck, UserX, Users, UserRoundCheck, Banknote, PiggyBank } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Badge } from '@/components/ui/Badge';
-import { Button } from '@/components/ui/Button';
-import { Card } from '@/components/ui/Card';
-import { EmptyState, ErrorState, SkeletonTable } from '@/components/feedback/Skeleton';
-import { useUserStore } from '@/store/userStore';
-import type { User, UserFilters, UserStatus } from '@/types/user';
-import { formatDateTime } from '@/utils/formatters';
-import { useUsers } from './useUsers';
+import {
+  AllUsersIcon,
+  CoinsIcon,
+  DateIcon,
+  EyeIcon,
+  FileIcon,
+  FilterIcon,
+  GroupUsersIcon,
+  UserCheck2,
+  UserTimes2,
+} from "@/assets/Icons";
+import {
+  EmptyState,
+  ErrorState,
+  SkeletonTable,
+} from "@/components/feedback/Skeleton";
+import { Badge } from "@/components/ui/Badge";
+import { Button } from "@/components/ui/Button";
+import { Card } from "@/components/ui/Card";
+import { useUserStore } from "@/store/userStore";
+import type { User, UserFilters, UserStatus } from "@/types/user";
+import { formatDateTime } from "@/utils/formatters";
+import { motion } from "framer-motion";
+import { ChevronLeft, ChevronRight, MoreVertical } from "lucide-react";
+import { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
+import { useUsers } from "./useUsers";
 
 const pageSizeOptions = [10, 25, 50, 100];
-const statuses: Array<UserStatus | ''> = ['', 'Active', 'Inactive', 'Pending', 'Blacklisted'];
-const tableHeadings = ['Organization', 'Username', 'Email', 'Phone Number', 'Date Joined', 'Status'];
+const statuses: Array<UserStatus | ""> = [
+  "",
+  "Active",
+  "Inactive",
+  "Pending",
+  "Blacklisted",
+];
+const tableHeadings = [
+  "Organization",
+  "Username",
+  "Email",
+  "Phone Number",
+  "Date Joined",
+  "Status",
+];
 const stats = [
-  { label: 'Users', value: '2,453', icon: Users, tone: 'magenta' },
-  { label: 'Active Users', value: '2,453', icon: UserRoundCheck, tone: 'violet' },
-  { label: 'Users with Loans', value: '12,453', icon: Banknote, tone: 'coral' },
-  { label: 'Users with Savings', value: '102,453', icon: PiggyBank, tone: 'rose' },
+  { label: "Users", value: "2,453", icon: GroupUsersIcon, tone: "magenta" },
+  {
+    label: "Active Users",
+    value: "2,453",
+    icon: AllUsersIcon,
+    tone: "violet",
+  },
+  {
+    label: "Users with Loans",
+    value: "12,453",
+    icon: FileIcon,
+    tone: "coral",
+  },
+  {
+    label: "Users with Savings",
+    value: "102,453",
+    icon: CoinsIcon,
+    tone: "rose",
+  },
 ] as const;
 
 export default function UsersPage() {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [filters, setFilters] = useState<UserFilters>({});
   const [openMenuId, setOpenMenuId] = useState<string | null>(null);
   const setSelectedUser = useUserStore((state) => state.setSelectedUser);
-  const { data, isLoading, isError, error } = useUsers(page, pageSize, search, filters);
+  const { data, isLoading, isError, error } = useUsers(
+    page,
+    pageSize,
+    search,
+    filters,
+  );
 
-  const pageCount = useMemo(() => Math.max(1, Math.ceil((data?.total ?? 0) / pageSize)), [data?.total, pageSize]);
+  const pageCount = useMemo(
+    () => Math.max(1, Math.ceil((data?.total ?? 0) / pageSize)),
+    [data?.total, pageSize],
+  );
 
   const updateFilter = (name: keyof UserFilters, value: string) => {
     setFilters((current) => ({ ...current, [name]: value }));
@@ -45,10 +96,15 @@ export default function UsersPage() {
       <h1>Users</h1>
       <div className="stats-grid">
         {stats.map(({ label, value, icon: Icon, tone }, index) => (
-          <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.04 }} key={label}>
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.04 }}
+            key={label}
+          >
             <Card className="stat-card stat-card--compact">
               <span className={`stat-card__icon stat-card__icon--${tone}`}>
-                <Icon size={20} />
+                <Icon aria-hidden="true" />
               </span>
               <p>{label}</p>
               <strong>{value}</strong>
@@ -58,60 +114,87 @@ export default function UsersPage() {
       </div>
 
       <Card className="table-card">
-        <div className="table-card__toolbar">
-          <label className="sr-only" htmlFor="users-search">
-            Search users
-          </label>
-          <input
-            id="users-search"
-            type="search"
-            placeholder="Search users"
-            value={search}
-            onChange={(event) => {
-              setSearch(event.target.value);
-              setPage(1);
-            }}
-          />
-          <Button type="button" variant="outline" onClick={() => setFiltersOpen((value) => !value)}>
-            <SlidersHorizontal size={15} />
-            Filter
-          </Button>
-        </div>
-
         {filtersOpen ? (
           <form className="filter-popover" aria-label="Filter users">
             <label>
               Organization
-              <input placeholder="Select" value={filters.organization ?? ''} onChange={(event) => updateFilter('organization', event.target.value)} />
+              <input
+                placeholder="Select"
+                value={filters.organization ?? ""}
+                onChange={(event) =>
+                  updateFilter("organization", event.target.value)
+                }
+              />
             </label>
             <label>
               Username
-              <input placeholder="User" value={filters.username ?? ''} onChange={(event) => updateFilter('username', event.target.value)} />
+              <input
+                placeholder="User"
+                value={filters.username ?? ""}
+                onChange={(event) =>
+                  updateFilter("username", event.target.value)
+                }
+              />
             </label>
             <label>
               Email
-              <input placeholder="Email" value={filters.email ?? ''} onChange={(event) => updateFilter('email', event.target.value)} />
+              <input
+                placeholder="Email"
+                value={filters.email ?? ""}
+                onChange={(event) => updateFilter("email", event.target.value)}
+              />
             </label>
             <label>
               Date
-              <input type="date" value={filters.date ?? ''} onChange={(event) => updateFilter('date', event.target.value)} />
+              <span className="filter-popover__date-field">
+                <input
+                  type="text"
+                  placeholder="Date"
+                  value={filters.date ?? ""}
+                  onFocus={(event) => {
+                    event.currentTarget.type = "date";
+                  }}
+                  onBlur={(event) => {
+                    if (!event.currentTarget.value) {
+                      event.currentTarget.type = "text";
+                    }
+                  }}
+                  onChange={(event) => updateFilter("date", event.target.value)}
+                />
+                <DateIcon aria-hidden="true" />
+              </span>
             </label>
             <label>
               Phone Number
-              <input placeholder="Phone Number" value={filters.phoneNumber ?? ''} onChange={(event) => updateFilter('phoneNumber', event.target.value)} />
+              <input
+                placeholder="Phone Number"
+                value={filters.phoneNumber ?? ""}
+                onChange={(event) =>
+                  updateFilter("phoneNumber", event.target.value)
+                }
+              />
             </label>
             <label>
               Status
-              <select value={filters.status ?? ''} onChange={(event) => updateFilter('status', event.target.value as UserStatus | '')}>
-              {statuses.map((status) => (
-                <option value={status} key={status || 'all'}>
-                  {status || 'Select status'}
-                </option>
-              ))}
+              <select
+                value={filters.status ?? ""}
+                onChange={(event) =>
+                  updateFilter("status", event.target.value as UserStatus | "")
+                }
+              >
+                {statuses.map((status) => (
+                  <option value={status} key={status || "all"}>
+                    {status || "Select status"}
+                  </option>
+                ))}
               </select>
             </label>
             <div className="filter-popover__actions">
-              <Button type="button" variant="outline" onClick={() => setFilters({})}>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => setFilters({})}
+              >
                 Reset
               </Button>
               <Button type="button" onClick={() => setFiltersOpen(false)}>
@@ -122,8 +205,19 @@ export default function UsersPage() {
         ) : null}
 
         {isLoading ? <SkeletonTable /> : null}
-        {isError ? <ErrorState message={error instanceof Error ? error.message : 'Please try again.'} /> : null}
-        {!isLoading && data?.data.length === 0 ? <EmptyState title="No users found" body="Try another search or filter combination." /> : null}
+        {isError ? (
+          <ErrorState
+            message={
+              error instanceof Error ? error.message : "Please try again."
+            }
+          />
+        ) : null}
+        {!isLoading && data?.data.length === 0 ? (
+          <EmptyState
+            title="No users found"
+            body="Try another search or filter combination."
+          />
+        ) : null}
         {!isLoading && data && data.data.length > 0 ? (
           <div className="table-wrap">
             <table className="users-table">
@@ -132,17 +226,20 @@ export default function UsersPage() {
                   {tableHeadings.map((heading) => (
                     <th key={heading}>
                       <span>{heading}</span>
-                      {heading === 'Organization' ? (
+                      {heading === "Organization" ? (
                         <button
                           className="users-table__filter"
                           type="button"
                           aria-label="Filter by Organization"
                           onClick={() => setFiltersOpen((value) => !value)}
                         >
-                          <SlidersHorizontal size={12} />
+                          <FilterIcon />
                         </button>
                       ) : (
-                        <SlidersHorizontal className="users-table__filter-icon" size={12} aria-hidden="true" />
+                        <FilterIcon
+                          className="users-table__filter-icon"
+                          aria-hidden="true"
+                        />
                       )}
                     </th>
                   ))}
@@ -161,19 +258,29 @@ export default function UsersPage() {
                       <Badge status={user.status} />
                     </td>
                     <td className="users-table__actions">
-                      <button type="button" aria-label={`Open actions for ${user.username}`} onClick={() => setOpenMenuId(openMenuId === user.id ? null : user.id)}>
+                      <button
+                        type="button"
+                        aria-label={`Open actions for ${user.username}`}
+                        onClick={() =>
+                          setOpenMenuId(openMenuId === user.id ? null : user.id)
+                        }
+                      >
                         <MoreVertical size={18} />
                       </button>
                       {openMenuId === user.id ? (
                         <div className="action-menu" role="menu">
-                          <Link to={`/users/${user.id}`} onClick={() => persistUser(user)}>
-                            <Eye size={14} /> View Details
+                          <Link
+                            to={`/users/${user.id}`}
+                            onClick={() => persistUser(user)}
+                            role="menuitem"
+                          >
+                            <EyeIcon /> View Details
                           </Link>
-                          <button type="button">
-                            <UserX size={14} /> Blacklist User
+                          <button type="button" role="menuitem">
+                            <UserTimes2 /> Blacklist User
                           </button>
-                          <button type="button">
-                            <UserCheck size={14} /> Activate User
+                          <button type="button" role="menuitem">
+                            <UserCheck2 /> Activate User
                           </button>
                         </div>
                       ) : null}
@@ -187,43 +294,72 @@ export default function UsersPage() {
       </Card>
 
       <div className="pagination" aria-label="Users pagination">
-        <span>Showing</span>
-        <select
-          value={pageSize}
-          onChange={(event) => {
-            setPageSize(Number(event.target.value));
-            setPage(1);
-          }}
-        >
-          {pageSizeOptions.map((option) => (
-            <option value={option} key={option}>
-              {option}
-            </option>
-          ))}
-        </select>
-        <span>out of {data?.total ?? 0}</span>
-        <button type="button" aria-label="Previous page" disabled={page === 1} onClick={() => setPage((value) => value - 1)}>
-          &lt;
-        </button>
-        {[1, 2, 3].filter((value) => value <= pageCount).map((value) => (
-          <button
-            className={page === value ? 'pagination__page pagination__page--active' : 'pagination__page'}
-            type="button"
-            onClick={() => setPage(value)}
-            key={value}
+        <div className="pagination__summary">
+          <span>Showing</span>
+          <select
+            aria-label="Users per page"
+            value={pageSize}
+            onChange={(event) => {
+              setPageSize(Number(event.target.value));
+              setPage(1);
+            }}
           >
-            {value}
+            {pageSizeOptions.map((option) => (
+              <option value={option} key={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+          <span>out of {data?.total ?? 0}</span>
+        </div>
+        <div className="pagination__controls">
+          <button
+            type="button"
+            aria-label="Previous page"
+            disabled={page === 1}
+            onClick={() => setPage((value) => value - 1)}
+          >
+            <ChevronLeft size={16} aria-hidden="true" />
           </button>
-        ))}
-        {pageCount > 6 ? <span>...</span> : null}
-        {pageCount > 3 ? (
-          <button className={page === pageCount ? 'pagination__page pagination__page--active' : 'pagination__page'} type="button" onClick={() => setPage(pageCount)}>
-            {pageCount}
+          {[1, 2, 3]
+            .filter((value) => value <= pageCount)
+            .map((value) => (
+              <button
+                className={
+                  page === value
+                    ? "pagination__page pagination__page--active"
+                    : "pagination__page"
+                }
+                type="button"
+                onClick={() => setPage(value)}
+                key={value}
+              >
+                {value}
+              </button>
+            ))}
+          {pageCount > 6 ? <span>...</span> : null}
+          {pageCount > 3 ? (
+            <button
+              className={
+                page === pageCount
+                  ? "pagination__page pagination__page--active"
+                  : "pagination__page"
+              }
+              type="button"
+              onClick={() => setPage(pageCount)}
+            >
+              {pageCount}
+            </button>
+          ) : null}
+          <button
+            type="button"
+            aria-label="Next page"
+            disabled={page === pageCount}
+            onClick={() => setPage((value) => value + 1)}
+          >
+            <ChevronRight size={16} aria-hidden="true" />
           </button>
-        ) : null}
-        <button type="button" aria-label="Next page" disabled={page === pageCount} onClick={() => setPage((value) => value + 1)}>
-          &gt;
-        </button>
+        </div>
       </div>
     </section>
   );

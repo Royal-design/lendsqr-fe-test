@@ -2,6 +2,7 @@
 @use '../abstracts/mixins' as *;
 
 .app-shell {
+  background: $color-bg;
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
   height: 100vh;
@@ -25,6 +26,7 @@
   }
 
   &__content {
+    background: $color-bg;
     height: 100%;
     min-width: 0;
     overflow-x: clip;

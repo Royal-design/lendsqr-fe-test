@@ -1,5 +1,5 @@
-@use '../abstracts/variables' as *;
-@use '../abstracts/mixins' as *;
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
 
 .card {
   @include card;
@@ -16,8 +16,11 @@
   min-height: 150px;
   min-width: 0;
   padding: $space-6;
+  border-radius: $radius-sm;
 
-  &--compact { min-height: 138px; }
+  &--compact {
+    min-height: 138px;
+  }
 
   &__icon,
   &__dot {
@@ -50,7 +53,7 @@
   }
 
   &__dot::before {
-    content: '';
+    content: "";
     background: currentColor;
     border-radius: 50%;
     height: 15px;

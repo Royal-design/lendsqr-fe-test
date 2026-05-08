@@ -1,12 +1,20 @@
-import { ArrowLeft, Star, UserRound, ShieldAlert, UserCheck } from 'lucide-react';
-import { Link, useParams } from 'react-router-dom';
-import { Button } from '@/components/ui/Button';
-import { Card } from '@/components/ui/Card';
-import { EmptyState } from '@/components/feedback/Skeleton';
-import { useUserStore } from '@/store/userStore';
-import { formatCurrency } from '@/utils/formatters';
+import { ArrowLeftIcon } from "@/assets/Icons";
+import { EmptyState } from "@/components/feedback/Skeleton";
+import { Button } from "@/components/ui/Button";
+import { Card } from "@/components/ui/Card";
+import { useUserStore } from "@/store/userStore";
+import { formatCurrency } from "@/utils/formatters";
+import { Star, UserRound } from "lucide-react";
+import { Link, useParams } from "react-router-dom";
 
-const tabs = ['General Details', 'Documents', 'Bank Details', 'Loans', 'Savings', 'App and System'];
+const tabs = [
+  "General Details",
+  "Documents",
+  "Bank Details",
+  "Loans",
+  "Savings",
+  "App and System",
+];
 
 function Detail({ label, value }: { label: string; value: string }) {
   return (
@@ -26,10 +34,13 @@ export default function UserDetailsPage() {
     return (
       <section className="page">
         <Link className="back-link" to="/users">
-          <ArrowLeft size={16} />
+          <ArrowLeftIcon />
           Back to Users
         </Link>
-        <EmptyState title="User details unavailable" body="Select a user from the users table to persist and view their profile." />
+        <EmptyState
+          title="User details unavailable"
+          body="Select a user from the users table to persist and view their profile."
+        />
       </section>
     );
   }
@@ -37,20 +48,14 @@ export default function UserDetailsPage() {
   return (
     <section className="user-details page">
       <Link className="back-link" to="/users">
-        <ArrowLeft size={16} />
+        <ArrowLeftIcon />
         Back to Users
       </Link>
       <div className="user-details__header">
         <h1>User Details</h1>
         <div>
-          <Button variant="danger">
-            <ShieldAlert size={15} />
-            Blacklist User
-          </Button>
-          <Button variant="outline">
-            <UserCheck size={15} />
-            Activate User
-          </Button>
+          <Button variant="danger">Blacklist User</Button>
+          <Button variant="outline">Activate User</Button>
         </div>
       </div>
 
@@ -67,20 +72,28 @@ export default function UserDetailsPage() {
             <span>User's Tier</span>
             <div aria-label={`${user.tier} star tier`}>
               {Array.from({ length: 3 }, (_, index) => (
-                <Star key={index} size={14} fill={index < user.tier ? '#e9b200' : 'none'} />
+                <Star
+                  key={index}
+                  size={14}
+                  fill={index < user.tier ? "#e9b200" : "none"}
+                />
               ))}
             </div>
           </div>
           <div>
             <h2>{formatCurrency(user.balance)}</h2>
-            <p>
+            <p className="profile-card__account">
               {user.accountNumber}/{user.bankName}
             </p>
           </div>
         </div>
         <nav className="profile-card__tabs" aria-label="User details sections">
           {tabs.map((tab, index) => (
-            <button className={index === 0 ? 'profile-card__tab--active' : ''} type="button" key={tab}>
+            <button
+              className={index === 0 ? "profile-card__tab--active" : ""}
+              type="button"
+              key={tab}
+            >
               {tab}
             </button>
           ))}
@@ -105,12 +118,27 @@ export default function UserDetailsPage() {
           <h2>Education and Employment</h2>
           <dl className="details-grid">
             <Detail label="Level of Education" value={user.education.level} />
-            <Detail label="Employment Status" value={user.education.employmentStatus} />
-            <Detail label="Sector of Employment" value={user.education.sector} />
-            <Detail label="Duration of Employment" value={user.education.duration} />
+            <Detail
+              label="Employment Status"
+              value={user.education.employmentStatus}
+            />
+            <Detail
+              label="Sector of Employment"
+              value={user.education.sector}
+            />
+            <Detail
+              label="Duration of Employment"
+              value={user.education.duration}
+            />
             <Detail label="Office Email" value={user.education.officeEmail} />
-            <Detail label="Monthly Income" value={`${formatCurrency(user.education.monthlyIncome[0])} - ${formatCurrency(user.education.monthlyIncome[1])}`} />
-            <Detail label="Loan Repayment" value={formatCurrency(user.education.loanRepayment)} />
+            <Detail
+              label="Monthly Income"
+              value={`${formatCurrency(user.education.monthlyIncome[0])} - ${formatCurrency(user.education.monthlyIncome[1])}`}
+            />
+            <Detail
+              label="Loan Repayment"
+              value={formatCurrency(user.education.loanRepayment)}
+            />
           </dl>
         </section>
         <section>
@@ -124,7 +152,10 @@ export default function UserDetailsPage() {
         <section>
           <h2>Guarantor</h2>
           {user.guarantors.map((guarantor) => (
-            <dl className="details-grid details-grid--guarantor" key={`${guarantor.email}-${guarantor.relationship}`}>
+            <dl
+              className="details-grid details-grid--guarantor"
+              key={`${guarantor.email}-${guarantor.relationship}`}
+            >
               <Detail label="Full Name" value={guarantor.fullName} />
               <Detail label="Phone Number" value={guarantor.phoneNumber} />
               <Detail label="Email Address" value={guarantor.email} />

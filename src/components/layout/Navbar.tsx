@@ -1,6 +1,6 @@
-import { Bell, Menu, Search } from 'lucide-react';
-import { Logo } from '@/components/layout/Logo';
-import { useUiStore } from '@/store/uiStore';
+import { BellIcon, ChevronDown, LendsqrLogo } from "@/assets/Icons";
+import { useUiStore } from "@/store/uiStore";
+import { Menu, Search } from "lucide-react";
 
 export function Navbar() {
   const toggleSidebar = useUiStore((state) => state.toggleSidebar);
@@ -8,16 +8,25 @@ export function Navbar() {
   return (
     <header className="navbar">
       <div className="navbar__brand">
-        <button className="navbar__menu" type="button" aria-label="Open navigation" onClick={toggleSidebar}>
+        <button
+          className="navbar__menu"
+          type="button"
+          aria-label="Open navigation"
+          onClick={toggleSidebar}
+        >
           <Menu size={20} />
         </button>
-        <Logo />
+        <LendsqrLogo />
       </div>
       <form className="navbar__search" role="search">
         <label className="sr-only" htmlFor="global-search">
           Search dashboard
         </label>
-        <input id="global-search" type="search" placeholder="Search for anything" />
+        <input
+          id="global-search"
+          type="search"
+          placeholder="Search for anything"
+        />
         <button type="submit" aria-label="Search">
           <Search size={15} />
         </button>
@@ -25,11 +34,14 @@ export function Navbar() {
       <div className="navbar__actions">
         <a href="#docs">Docs</a>
         <button type="button" aria-label="Notifications">
-          <Bell size={18} />
+          <BellIcon />
         </button>
         <button className="navbar__profile" type="button" aria-haspopup="menu">
-          <span className="navbar__avatar">A</span>
-          <span className="navbar__name">Adedeji</span>
+          <img className="navbar__avatar" src="/avatar.webp" alt="Adedeji" />
+          <div className="navbar__profile-info">
+            <p className="navbar__name">Adedeji</p>
+            <ChevronDown />
+          </div>
         </button>
       </div>
     </header>

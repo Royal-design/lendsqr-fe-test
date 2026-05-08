@@ -1,11 +1,12 @@
-import { lazy, Suspense } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
-import { AppLayout } from '@/layouts/AppLayout';
+import { AppLayout } from "@/layouts/AppLayout";
+import { lazy, Suspense } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
 
-const LoginPage = lazy(() => import('@/features/auth/LoginPage'));
-const DashboardPage = lazy(() => import('@/features/dashboard/DashboardPage'));
-const UsersPage = lazy(() => import('@/features/users/UsersPage'));
-const UserDetailsPage = lazy(() => import('@/features/user-details/UserDetailsPage'));
+const LoginPage = lazy(() => import("@/features/auth/LoginPage"));
+const UsersPage = lazy(() => import("@/features/users/UsersPage"));
+const UserDetailsPage = lazy(
+  () => import("@/features/user-details/UserDetailsPage"),
+);
 
 function RouteFallback() {
   return <div className="route-loader">Loading...</div>;
@@ -17,7 +18,6 @@ export function AppRoutes() {
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route element={<AppLayout />}>
-          <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/users" element={<UsersPage />} />
           <Route path="/users/:id" element={<UserDetailsPage />} />
         </Route>

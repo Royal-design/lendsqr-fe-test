@@ -1,3 +1,5 @@
+@use "../abstracts/variables" as *;
+
 *,
 *::before,
 *::after {
@@ -15,7 +17,7 @@ body {
   margin: 0;
   min-width: 320px;
   overflow-x: clip;
-  background: #f5f6fa;
+  background: $color-bg;
 }
 
 #root {

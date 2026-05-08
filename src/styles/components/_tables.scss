@@ -1,4 +1,4 @@
-@use '../abstracts/variables' as *;
+@use "../abstracts/variables" as *;
 
 .table-wrap {
   overflow-x: auto;
@@ -77,6 +77,7 @@
 
   &__actions {
     position: relative;
+    font-weight: 500;
 
     > button {
       align-items: center;
@@ -103,8 +104,20 @@
   font-size: 12px;
   padding: 0.35rem 0.75rem;
 
-  &--active { background: rgba($color-success, 0.1); color: $color-success; }
-  &--inactive { background: rgba($color-text, 0.1); color: $color-text; }
-  &--pending { background: rgba($color-warning, 0.12); color: $color-warning; }
-  &--blacklisted { background: rgba($color-danger, 0.1); color: $color-danger; }
+  &--active {
+    background: rgba($color-success, 0.1);
+    color: $color-success;
+  }
+  &--inactive {
+    background: rgba($color-text, 0.1);
+    color: $color-text;
+  }
+  &--pending {
+    background: rgba($color-warning, 0.12);
+    color: $color-warning;
+  }
+  &--blacklisted {
+    background: rgba($color-danger, 0.1);
+    color: $color-danger;
+  }
 }

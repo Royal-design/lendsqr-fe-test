@@ -1,5 +1,5 @@
-@use '../abstracts/variables' as *;
-@use '../abstracts/mixins' as *;
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
 
 .sidebar {
   background: $color-white;
@@ -29,7 +29,9 @@
     transform: translateX(0);
   }
 
-  &--open { transform: translateX(0); }
+  &--open {
+    transform: translateX(0);
+  }
 
   nav {
     flex: 1 1 auto;
@@ -45,16 +47,35 @@
     background: transparent;
     border: 0;
     color: $color-navy;
+    font-size: 16px;
+    font-weight: 400;
+    cursor: pointer;
     display: flex;
     gap: $space-3;
     min-height: 42px;
     padding: 0 clamp(1rem, 7vw, 1.875rem);
     text-align: left;
     width: 100%;
+
+    svg {
+      flex: 0 0 16px;
+      height: 16px;
+      width: 16px;
+    }
   }
 
   &__switch {
     flex: 0 0 auto;
+
+    span {
+      min-width: 0;
+    }
+
+    .sidebar__switch-chevron {
+      flex-basis: 8px;
+      height: 5px;
+      width: 8px;
+    }
   }
 
   &__link {
@@ -66,14 +87,14 @@
 
     &:hover,
     &--active {
-      background: rgba($color-primary, 0.08);
+      background: rgba($color-primary, 0.06);
       color: $color-navy;
     }
 
     &--active::before {
       background: $color-primary;
       bottom: 0;
-      content: '';
+      content: "";
       left: 0;
       position: absolute;
       top: 0;
@@ -93,7 +114,7 @@
   &__section {
     color: $color-text;
     font-size: 12px;
-    font-weight: 700;
+    font-weight: 500;
     margin: $space-4 clamp(1rem, 7vw, 1.875rem) $space-2;
     text-transform: uppercase;
   }
@@ -109,6 +130,7 @@
     color: $color-text;
     flex: 0 0 auto;
     font-size: 12px;
+    margin-top: 12px;
     padding: 0 clamp(1rem, 7vw, 1.5rem);
   }
 }

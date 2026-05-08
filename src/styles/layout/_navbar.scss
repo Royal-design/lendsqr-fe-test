@@ -1,13 +1,12 @@
-@use '../abstracts/variables' as *;
-@use '../abstracts/mixins' as *;
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
 
 .navbar {
   align-items: center;
   background: $color-white;
-  box-shadow: $shadow-subtle;
   display: grid;
   gap: $space-4;
-  grid-template-columns: minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) auto;
   left: 0;
   max-width: 100vw;
   min-height: 80px;
@@ -21,7 +20,7 @@
 
   @media (max-width: 35rem) {
     gap: $space-3;
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) max-content;
     padding: $space-3 $space-4;
   }
 
@@ -40,11 +39,26 @@
 
   &__brand {
     gap: $space-3;
+    grid-column: 1;
     overflow: hidden;
 
+    svg {
+      height: auto;
+      max-width: min(174px, 100%);
+    }
+
     @media (max-width: 35rem) {
-      justify-content: space-between;
-      width: 100%;
+      gap: $space-2;
+
+      svg {
+        max-width: min(112px, 100%);
+      }
+    }
+
+    @media (max-width: 24rem) {
+      svg {
+        max-width: min(96px, 100%);
+      }
     }
   }
 
@@ -54,24 +68,34 @@
     color: $color-navy;
     cursor: pointer;
 
-    @include respond(lg) { display: none; }
+    @include respond(lg) {
+      display: none;
+    }
   }
 
   &__search {
+    grid-column: 1 / -1;
     min-width: 0;
     width: 100%;
 
     input {
-      border-radius: $radius-md 0 0 $radius-md;
+      border-radius: $radius-lg 0 0 $radius-lg;
       flex: 1;
       min-width: 0;
+      border: 1px solid $color-navy;
+      border-right: none;
+
+      &::placeholder {
+        color: $color-text;
+        font-size: 14px;
+      }
     }
 
     button {
       @include flex-center;
       background: $color-primary;
       border: 0;
-      border-radius: 0 $radius-md $radius-md 0;
+      border-radius: 0 $radius-lg $radius-lg 0;
       color: $color-white;
       height: 40px;
       flex: 0 0 56px;
@@ -82,30 +106,48 @@
         width: 44px;
       }
     }
+
+    @include respond(md) {
+      grid-column: auto;
+    }
   }
 
   &__actions {
     gap: $space-5;
+    grid-column: 2;
     justify-content: flex-end;
     min-width: 0;
-    overflow: hidden;
 
-    @media (max-width: 40rem) {
-      gap: $space-3;
-      justify-content: flex-end;
-      width: 100%;
+    a {
+      color: $color-navy;
+      font-weight: 400;
+      text-decoration: underline;
+      margin-right: 1rem;
     }
 
-    @media (max-width: 35rem) {
+    @media (max-width: 40rem) {
       a {
         display: none;
       }
     }
 
+    @media (max-width: 35rem) {
+      gap: $space-2;
+    }
+
+    @include respond(md) {
+      grid-column: auto;
+    }
+
     > button {
+      @include flex-center;
       background: transparent;
       border: 0;
       cursor: pointer;
+      flex: 0 0 auto;
+      min-height: 40px;
+      min-width: 40px;
+      padding: 0;
     }
   }
 
@@ -116,41 +158,58 @@
     font-weight: 600;
     gap: $space-2;
     min-width: 0;
-    max-width: 9rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    max-width: 10rem;
 
     @media (max-width: 35rem) {
       font-size: 12px;
       gap: $space-1;
-      max-width: 6.5rem;
+      max-width: none;
+      min-width: 44px;
+
+      .navbar__name {
+        display: none;
+      }
     }
 
     @media (max-width: 24rem) {
-      max-width: 4.5rem;
+      min-width: 38px;
     }
 
     .navbar__avatar {
-      @include flex-center;
-      background: linear-gradient(135deg, #ff7a7a, #ffcc4d);
       border-radius: 50%;
       flex: 0 0 auto;
-      color: $color-white;
       height: 36px;
+      object-fit: cover;
       width: 36px;
 
       @media (max-width: 35rem) {
         height: 30px;
         width: 30px;
       }
+
+      @media (max-width: 24rem) {
+        height: 28px;
+        width: 28px;
+      }
     }
 
     .navbar__name {
+      margin: 0;
       min-width: 0;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+    }
+
+    .navbar__profile-info {
+      align-items: center;
+      display: flex;
+      gap: $space-2;
+      min-width: 0;
+
+      svg {
+        flex: 0 0 auto;
+      }
     }
   }
 }
