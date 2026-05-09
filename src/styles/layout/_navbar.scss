@@ -18,7 +18,7 @@
   width: 100%;
   z-index: 30;
 
-  @media (max-width: 35rem) {
+  @media (max-width: 47.99rem) {
     gap: $space-3;
     grid-template-columns: minmax(0, 1fr) max-content;
     padding: $space-3 $space-4;
@@ -41,6 +41,10 @@
     gap: $space-3;
     grid-column: 1;
     overflow: hidden;
+
+    @media (max-width: 47.99rem) {
+      grid-row: 1;
+    }
 
     svg {
       height: auto;
@@ -78,6 +82,10 @@
     min-width: 0;
     width: 100%;
 
+    @media (max-width: 47.99rem) {
+      grid-row: 2;
+    }
+
     input {
       border-radius: $radius-lg 0 0 $radius-lg;
       flex: 1;
@@ -109,14 +117,21 @@
 
     @include respond(md) {
       grid-column: auto;
+      grid-row: auto;
     }
   }
 
   &__actions {
     gap: $space-5;
     grid-column: 2;
+    justify-self: end;
     justify-content: flex-end;
     min-width: 0;
+
+    @media (max-width: 47.99rem) {
+      gap: $space-2;
+      grid-row: 1;
+    }
 
     a {
       color: $color-navy;
@@ -125,18 +140,16 @@
       margin-right: 1rem;
     }
 
-    @media (max-width: 40rem) {
+    @media (max-width: 47.99rem) {
       a {
         display: none;
       }
     }
 
-    @media (max-width: 35rem) {
-      gap: $space-2;
-    }
-
     @include respond(md) {
       grid-column: auto;
+      grid-row: auto;
+      justify-self: auto;
     }
 
     > button {
