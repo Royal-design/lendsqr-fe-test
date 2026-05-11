@@ -4,9 +4,15 @@
 .login {
   background: $color-white;
   display: grid;
+  font-family: "Avenir Next", Avenir, "Segoe UI", Roboto, Arial, sans-serif;
   min-height: 100vh;
   max-width: 100vw;
   overflow-x: clip;
+
+  input,
+  button {
+    font-family: inherit;
+  }
 
   @include respond(md) {
     grid-template-columns: 1fr 1fr;
