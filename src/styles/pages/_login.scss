@@ -62,7 +62,7 @@
       display: block;
       height: auto;
       justify-self: center;
-      margin-bottom: $space-6;
+      margin-bottom: $space-3;
       max-width: 100%;
       overflow: visible;
       width: 174px;
@@ -100,6 +100,11 @@
     @media (max-width: 47.9375rem) {
       justify-self: center;
       max-width: 420px;
+
+      h1,
+      p {
+        text-align: center;
+      }
     }
 
     h1 {
